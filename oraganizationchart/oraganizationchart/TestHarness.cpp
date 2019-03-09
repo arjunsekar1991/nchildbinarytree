@@ -36,9 +36,9 @@ int main() {
 	//o1.printSubTree(o1.getRoot());
 
 	// Write out a tree and read it back in to a new tree, then print
-	o1.write("output.txt");
-	o2.read("output.txt");
-	o2.printSubTree(o2.getRoot()); //printSubTree from root
+	//o1.write("output.txt");
+	//o2.read("output.txt");
+	//o2.printSubTree(o2.getRoot()); //printSubTree from root
 
 	system("PAUSE");
 	return 0;
