@@ -1,7 +1,4 @@
-#include "pch.h"
 
-
-#include "stdafx.h"
 #include "OrgTree.h"
 #include <string>
 #include <iostream>
@@ -15,9 +12,9 @@ int main() {
 	OrgTree o1, o2;
 
 	// Adding roots should make a linear tree
-	o1.addRoot("R1", "R1");
-	o1.addRoot("R2", "R2");
-	o1.addRoot("R3", "R3");
+	//o1.addRoot("R1", "R1");
+	//o1.addRoot("R2", "R2");
+	//o1.addRoot("R3", "R3");
 
 	//o1.printSubTree(o1.getRoot()); //printSubTree from root
 
