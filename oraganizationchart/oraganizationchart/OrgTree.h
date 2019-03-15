@@ -6,45 +6,45 @@
 
 using namespace std;
 
+class TreeNode {
+public:
+	string data;
+	TreeNode *parent;
+	TreeNode *leftMostChild;
+	TreeNode *rightSibling;
+
+	TreeNode(string datainput) {
+		parent = nullptr;
+		leftMostChild = nullptr;
+		rightSibling = nullptr;
+		data = datainput;
+
+	}
+	~TreeNode() {
+
+	};
+};
+
 
 class OrgTree{ 
-private:
-	class TreeNode {
-	public:
-		string title;
-		string name;
-		TreeNode* parent;
-		TreeNode* leftMostChild;
-		TreeNode* rightSibling;
-
-		TreeNode(string titleOrganization, string fullName) {
-			parent = nullptr;
-			leftMostChild = nullptr;
-			rightSibling = nullptr;
-			title = titleOrganization;
-			name = fullName;
-			
-		}
-		~TreeNode() {
-
-		};
-	};
-
 public:
+	
 	
 	OrgTree();
 	~OrgTree();           // Destructor
-//	void addRoot(string, string);
-//	unsigned int getSize();
+	void addRoot(string);
+	unsigned int getSize();
 //	TreeNode* getRoot();
 //	TreeNode* leftmostChild(TreeNode* node);
 //	TreeNode* rightSibling(TreeNode* node);
 //	void printSubTree(TreeNode* subTreeRoot);
 //	TreeNode* find(string);
-//	bool read(string);
+	bool read(string);
 //	void write(string);
-//	void hire(TreeNode*, string, string);
+	void hire(TreeNode* node,string);
 //	bool fire(string)
-	
-
+private:
+	TreeNode *root;
+	unsigned int numElts;
+	TreeNode *currentRoot;
 };

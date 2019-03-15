@@ -9,8 +9,8 @@ using namespace std;
 // by adding additional tests for each item in the grading rubric!
 
 int main() {
-	OrgTree o1, o2;
-
+	//OrgTree o1, o2;
+	
 	// Adding roots should make a linear tree
 	//o1.addRoot("R1", "R1");
 	//o1.addRoot("R2", "R2");
@@ -39,6 +39,8 @@ int main() {
 	//o1.write("output.txt");
 	//o2.read("output.txt");
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
+	OrgTree o1;
+	o1.read("input.txt");
 
 	system("PAUSE");
 	return 0;
