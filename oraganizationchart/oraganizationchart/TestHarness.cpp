@@ -41,7 +41,7 @@ int main() {
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
 	OrgTree o1;
 	o1.read("input.txt");
-
+	cout << "test";
 	system("PAUSE");
 	return 0;
 

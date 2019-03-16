@@ -25,18 +25,21 @@ void OrgTree::addRoot(string data) {
 		while (temp->leftMostChild != nullptr)
 		{
 			temp = temp->leftMostChild;
-			this->currentRoot = temp;
+			
 		}
 		temp->leftMostChild = currentTreeNode;
 		numElts = numElts + 1;
 		currentTreeNode->parent = temp;
-		
+		this->currentRoot = currentTreeNode;
+
+
 	}
 	if (numElts == 0) {
 		this->root = new TreeNode(data);
 		numElts = numElts + 1;
+		this->currentRoot = root;
 	}
-	
+
 
 }
 
@@ -46,48 +49,73 @@ bool OrgTree::read(string filename) {
 	if(!ifs.is_open())
 		ifs.open(filename);
 	
-	
+	bool isRootNeeded=true;
 	while (!ifs.eof())
-	{
+	{	
 		
-		while (ifs.peek() != ')'&& !ifs.eof()) {
+		while (ifs.peek() != ')' && !ifs.eof()&& isRootNeeded) {
 			getline(ifs, data);
+
 			addRoot(data);
-			
+
 		}
-		while (ifs.peek() == ')') {
-			
+
+		
+		if (ifs.peek() == ')') {
+			isRootNeeded = false;
 			getline(ifs, junk);
 			
 			getline(ifs, data);
+			//	currentRoot = currentRoot->parent;
 			if (data == junk) {
 				currentRoot = currentRoot->parent;
+				if (currentRoot == root) {
+					getline(ifs, data);
+					if (ifs.eof()) {
+						cout << "valid file";
+						return true;
+					}
+					else {
+						cout << "Invalid file sequence";
+						return false;
+					}
+					break;
+				}
 				getline(ifs, data);
+
 			}
+			if(data != ")"){
+		//		currentRoot = currentRoot->parent;
 			hire(currentRoot,data);
-				
+			}
 		}
+		while (ifs.peek() != ')'&& !isRootNeeded) {
+			getline(ifs, data);
+			hire(currentRoot, data);
+		}
+
+		
 	}
 		
 	
-	return true;
 }
 
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
-	if(treeNode->rightSibling == nullptr) 
+	if(currentRoot->rightSibling == nullptr) 
 	{
-		treeNode->rightSibling = temp;
-		temp->parent = treeNode;
-		
+		currentRoot->rightSibling = temp;
+		temp->parent = currentRoot->parent;
+		currentRoot = currentRoot->rightSibling;
 	}
 	else {
-		while (treeNode->rightSibling!=nullptr)
+		while (currentRoot->rightSibling!=nullptr)
 		{
-			treeNode = treeNode->rightSibling;
+			currentRoot = currentRoot->rightSibling;
 		}
-		treeNode->rightSibling = temp;
+		currentRoot->rightSibling = temp;
 		temp->parent = currentRoot;
+		currentRoot = currentRoot->rightSibling;
 	}
 }
 
