@@ -92,6 +92,8 @@ bool OrgTree::read(string filename) {
 		while (ifs.peek() != ')'&& !isRootNeeded) {
 			getline(ifs, data);
 			hire(currentRoot, data);
+		//	isRootNeeded = true;
+		
 		}
 
 		
@@ -102,6 +104,11 @@ bool OrgTree::read(string filename) {
 
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
+	/*if (currentRoot->leftMostChild == nullptr) {
+		currentRoot->leftMostChild = temp;
+		temp->parent = currentRoot->parent;
+		currentRoot = currentRoot->leftMostChild;
+	}*/
 	if(currentRoot->rightSibling == nullptr) 
 	{
 		currentRoot->rightSibling = temp;
