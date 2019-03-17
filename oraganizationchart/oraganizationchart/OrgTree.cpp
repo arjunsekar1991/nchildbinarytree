@@ -19,7 +19,7 @@ OrgTree::~OrgTree()
 
 void OrgTree::addRoot(string data) {
 	TreeNode* currentTreeNode;
-	if (numElts != 0) {
+	/*if (numElts != 0) {
 		currentTreeNode = new TreeNode(data);
 		TreeNode* temp = root;
 		while (temp->leftMostChild != nullptr)
@@ -33,7 +33,7 @@ void OrgTree::addRoot(string data) {
 		this->currentRoot = currentTreeNode;
 
 
-	}
+	}*/
 	if (numElts == 0) {
 		this->root = new TreeNode(data);
 		numElts = numElts + 1;
@@ -57,6 +57,7 @@ bool OrgTree::read(string filename) {
 			getline(ifs, data);
 
 			addRoot(data);
+			isRootNeeded = false;
 
 		}
 
@@ -64,30 +65,8 @@ bool OrgTree::read(string filename) {
 		if (ifs.peek() == ')') {
 			isRootNeeded = false;
 			getline(ifs, junk);
+			currentRoot = currentRoot->parent;
 			
-			getline(ifs, data);
-			//	currentRoot = currentRoot->parent;
-			if (data == junk) {
-				currentRoot = currentRoot->parent;
-				if (currentRoot == root) {
-					getline(ifs, data);
-					if (ifs.eof()) {
-						cout << "valid file";
-						return true;
-					}
-					else {
-						cout << "Invalid file sequence";
-						return false;
-					}
-					break;
-				}
-				getline(ifs, data);
-
-			}
-			if(data != ")"){
-		//		currentRoot = currentRoot->parent;
-			hire(currentRoot,data);
-			}
 		}
 		while (ifs.peek() != ')'&& !isRootNeeded) {
 			getline(ifs, data);
@@ -99,30 +78,26 @@ bool OrgTree::read(string filename) {
 		
 	}
 		
-	
+	return true;
 }
 
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
-	/*if (currentRoot->leftMostChild == nullptr) {
+	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;
-		temp->parent = currentRoot->parent;
+		temp->parent = currentRoot;
 		currentRoot = currentRoot->leftMostChild;
-	}*/
-	if(currentRoot->rightSibling == nullptr) 
-	{
-		currentRoot->rightSibling = temp;
-		temp->parent = currentRoot->parent;
-		currentRoot = currentRoot->rightSibling;
 	}
 	else {
+		currentRoot = currentRoot->leftMostChild;
 		while (currentRoot->rightSibling!=nullptr)
 		{
 			currentRoot = currentRoot->rightSibling;
 		}
-		currentRoot->rightSibling = temp;
-		temp->parent = currentRoot;
-		currentRoot = currentRoot->rightSibling;
+		currentRoot->rightSibling = temp;	
+		temp->parent = currentRoot->parent;
+		currentRoot = temp;
+
 	}
 }
 
