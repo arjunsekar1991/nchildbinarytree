@@ -44,7 +44,7 @@ void OrgTree::addRoot(string data) {
 }
 
 bool OrgTree::read(string filename) {
-	string data, junk;
+	string data, junk,previousjunk,secondtolastjunk;
 	ifstream ifs;
 	if(!ifs.is_open())
 		ifs.open(filename);
@@ -55,7 +55,7 @@ bool OrgTree::read(string filename) {
 		
 		while (ifs.peek() != ')' && !ifs.eof()&& isRootNeeded) {
 			getline(ifs, data);
-
+			junk = data;
 			addRoot(data);
 			isRootNeeded = false;
 
@@ -64,16 +64,36 @@ bool OrgTree::read(string filename) {
 		
 		if (ifs.peek() == ')') {
 			isRootNeeded = false;
+			secondtolastjunk = previousjunk;
+			previousjunk = junk;
 			getline(ifs, junk);
+			
+			if (currentRoot == root && previousjunk == junk&&junk==secondtolastjunk) {
+				//getline(ifs, junk);
+				if (ifs.eof()) {
+					cout << "valid file";
+					return true;
+				}
+				else {
+					cout << "Invalid file sequence";
+					return false;
+				}
+				break;
+			}
 			currentRoot = currentRoot->parent;
+
+			
 			
 		}
 		while (ifs.peek() != ')'&& !isRootNeeded) {
 			getline(ifs, data);
 			hire(currentRoot, data);
+			junk = data;
+
 		//	isRootNeeded = true;
 		
 		}
+		
 
 		
 	}
