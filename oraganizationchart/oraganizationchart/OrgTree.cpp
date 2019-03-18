@@ -120,6 +120,7 @@ void OrgTree::hire(TreeNode* treeNode, string data) {
 }
 
 void OrgTree::write(string filename) {
+	filecontents = "";
 	if (root == nullptr){
 		cout << "Tree is empty";
 	}
@@ -172,4 +173,8 @@ unsigned int OrgTree::getSize() {
 
 TreeNode* OrgTree::getRoot() {
 	return root;
+}
+
+TreeNode* OrgTree::find(string) {
+	return nullptr;
 }

@@ -38,7 +38,7 @@ public:
 //	TreeNode* leftmostChild(TreeNode* node);
 //	TreeNode* rightSibling(TreeNode* node);
 	void printSubTree(TreeNode* subTreeRoot);
-//	TreeNode* find(string);
+	TreeNode* find(string);
 	bool read(string);
 	void write(string);
 	void hire(TreeNode* node,string);
