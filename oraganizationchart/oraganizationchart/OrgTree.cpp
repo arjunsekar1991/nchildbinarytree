@@ -68,11 +68,11 @@ bool OrgTree::read(string filename) {
 			if (currentRoot == root && previousjunk == junk&&junk==secondtolastjunk) {
 				//getline(ifs, junk);
 				if (ifs.eof()) {
-					cout << "valid file";
+					//cout << "valid file";
 					return true;
 				}
 				else {
-					cout << "Invalid file sequence";
+					//cout << "Invalid file sequence";
 					return false;
 				}
 				break;
@@ -127,7 +127,7 @@ void OrgTree::write(string filename) {
 		TreeNode* temproot = this->getRoot();
 		printSubTree(temproot);
 		cout << endl;
-		cout <<"printing file contents"<< filecontents;
+		//cout <<"printing file contents"<< filecontents;
 		ofstream ofs;
 		ofs.open(filename);
 

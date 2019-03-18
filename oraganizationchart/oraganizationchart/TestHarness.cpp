@@ -46,6 +46,7 @@ int main() {
 	o1.read("input.txt");
 	//TreeNode* rootAddress = o1.getRoot();
 	o1.write("output.txt");
+	cout << "size of organization" << o1.getSize();
 	system("PAUSE");
 	return 0;
 
