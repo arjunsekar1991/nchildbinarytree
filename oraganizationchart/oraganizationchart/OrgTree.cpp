@@ -5,6 +5,7 @@
 #include <string>
 #include "Tokenize.h"
 #include <sstream>
+#include <stack> 
 using namespace std;
 
 OrgTree::OrgTree()
@@ -175,6 +176,42 @@ TreeNode* OrgTree::getRoot() {
 	return root;
 }
 
-TreeNode* OrgTree::find(string) {
-	return nullptr;
+TreeNode* OrgTree::find(string searchdata) {
+
+	if (root == nullptr)
+		return nullptr;
+
+
+	stack<TreeNode*> stack;
+	stack.push(root);
+	TreeNode* returnValue=nullptr;
+	// run till stack is not empty
+	while (!stack.empty())
+	{
+		// pop a node from the stack and print it
+		TreeNode* currentNode = stack.top();
+		stack.pop();
+		if (currentNode->data == searchdata)
+		{
+			returnValue = currentNode;
+			return currentNode;
+		}
+		else {
+			cout << currentNode->data << " ";
+
+			// push right child of popped node to the stack
+			if (currentNode->rightSibling)
+				stack.push(currentNode->rightSibling);
+
+			// push left child of popped node to the stack
+			if (currentNode->leftMostChild)
+				stack.push(currentNode->leftMostChild);
+		}
+
+		returnValue = nullptr;
+
+		// important note - right child is pushed first so that left child
+		// is processed first (FIFO order)
+	}
+	return returnValue;
 }
