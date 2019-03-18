@@ -9,7 +9,7 @@ using namespace std;
 OrgTree::OrgTree()
 {
 	numElts = 0;
-	root = NULL;
+	root = nullptr;
 }
 
 
@@ -19,21 +19,16 @@ OrgTree::~OrgTree()
 
 void OrgTree::addRoot(string data) {
 	TreeNode* currentTreeNode;
-	/*if (numElts != 0) {
+	if (numElts != 0) {
 		currentTreeNode = new TreeNode(data);
-		TreeNode* temp = root;
-		while (temp->leftMostChild != nullptr)
-		{
-			temp = temp->leftMostChild;
-			
-		}
-		temp->leftMostChild = currentTreeNode;
+
+		root->parent = currentTreeNode;
 		numElts = numElts + 1;
-		currentTreeNode->parent = temp;
-		this->currentRoot = currentTreeNode;
+		currentTreeNode->leftMostChild = root;
+		root = currentTreeNode;
 
 
-	}*/
+	}
 	if (numElts == 0) {
 		this->root = new TreeNode(data);
 		numElts = numElts + 1;
@@ -103,6 +98,7 @@ bool OrgTree::read(string filename) {
 
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
+	numElts++;
 	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;
 		temp->parent = currentRoot;
@@ -121,6 +117,31 @@ void OrgTree::hire(TreeNode* treeNode, string data) {
 	}
 }
 
+void OrgTree::write( string filename) {
+	if (root == nullptr){
+		cout << "Tree is empty";
+	}
+	else {
+		TreeNode* temproot = this->getRoot();
+		printSubTree(temproot);
+	}
+}
+
+void OrgTree::printSubTree(TreeNode* subTreeRoot) {
+	if (subTreeRoot == nullptr) {
+		return;
+	}
+	cout << subTreeRoot->data;
+	printSubTree(subTreeRoot->leftMostChild);
+	cout << ")";
+	printSubTree(subTreeRoot->rightSibling);
+	//cout << ")";
+}
+
 unsigned int OrgTree::getSize() {
 	return numElts;
+}
+
+TreeNode* OrgTree::getRoot() {
+	return root;
 }

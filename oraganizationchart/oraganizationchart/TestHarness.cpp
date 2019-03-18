@@ -15,13 +15,16 @@ int main() {
 	//o1.addRoot("R1", "R1");
 	//o1.addRoot("R2", "R2");
 	//o1.addRoot("R3", "R3");
+	//o1.addRoot("R1");
+	//o1.addRoot("R2");
+	//o1.addRoot("R3");
 
 	//o1.printSubTree(o1.getRoot()); //printSubTree from root
 
 
 	//add two children to root
-	//o1.hire(o1.getRoot(), "R3C1", "R3C1");
-	//o1.hire(o1.getRoot(), "R3C2", "R3C2");
+	//o1.hire(o1.getRoot(), "R3C1");
+	//o1.hire(o1.getRoot(), "R3C2");
 
 
 	//o1.hire(o1.find("R3C1"), "R3C1C1", "R3C1C1");//test find on leaf node and hire to it
@@ -39,8 +42,10 @@ int main() {
 	//o1.write("output.txt");
 	//o2.read("output.txt");
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
-	OrgTree o1;
+	OrgTree o1,o2;
 	o1.read("input.txt");
+	//TreeNode* rootAddress = o1.getRoot();
+	o1.write("output.txt");
 	system("PAUSE");
 	return 0;
 
