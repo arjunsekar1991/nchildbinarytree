@@ -47,4 +47,5 @@ private:
 	TreeNode *root;
 	unsigned int numElts;
 	TreeNode *currentRoot;
+	string filecontents;
 };

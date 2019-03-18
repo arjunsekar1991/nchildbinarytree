@@ -4,12 +4,14 @@
 #include <fstream>
 #include <string>
 #include "Tokenize.h"
+#include <sstream>
 using namespace std;
 
 OrgTree::OrgTree()
 {
 	numElts = 0;
 	root = nullptr;
+	string filecontents = "";
 }
 
 
@@ -117,14 +119,39 @@ void OrgTree::hire(TreeNode* treeNode, string data) {
 	}
 }
 
-void OrgTree::write( string filename) {
+void OrgTree::write(string filename) {
 	if (root == nullptr){
 		cout << "Tree is empty";
 	}
 	else {
 		TreeNode* temproot = this->getRoot();
 		printSubTree(temproot);
+		cout << endl;
+		cout <<"printing file contents"<< filecontents;
+		ofstream ofs;
+		ofs.open(filename);
+
+
+
+		vector <string> tokens;
+
+
+	//	stringstream ss(filecontents);
+
+		tokens = StringSplit(filecontents, "^", false);
+
+		// Tokenizing w.r.t. space ' ' 
+		//while (getline(ss, intermediate, '^'))
+		//{
+		//	myfile.write(intermediate);
+			for (string i : tokens){
+				ofs << i;
+				ofs << endl;
+			}
+		ofs.close();
 	}
+
+	//}
 }
 
 void OrgTree::printSubTree(TreeNode* subTreeRoot) {
@@ -132,10 +159,11 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 		return;
 	}
 	cout << subTreeRoot->data;
+	filecontents= filecontents+ subTreeRoot->data+"^";
 	printSubTree(subTreeRoot->leftMostChild);
 	cout << ")";
+	filecontents = filecontents + ")" + "^";
 	printSubTree(subTreeRoot->rightSibling);
-	//cout << ")";
 }
 
 unsigned int OrgTree::getSize() {
