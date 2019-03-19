@@ -45,20 +45,40 @@ int main() {
 	OrgTree o1,o2;
 	o1.read("input.txt");
 	//TreeNode* rootAddress = o1.getRoot();
-	TreeNode* dataFinder;
+	//TreeNode* dataFinder;
 	//o1.write("output.txt");
 	//cout << "size of organization" << o1.getSize();
-	dataFinder = o1.find("VM");
-	TreeNode* lefchild= o1.leftmostChild(dataFinder);
+	//dataFinder = o1.find("VM");
+	//TreeNode* lefchild= o1.leftmostChild(dataFinder);
 
-	TreeNode* rightchild = o1.rightSibling(dataFinder);
+	//TreeNode* rightchild = o1.rightSibling(dataFinder);
 
 	//o1.fire("DK");
 	//o1.fire("VB");
 	//o1.fire("DA");
 	//o1.fire("MW");
-	o1.printSubTree(dataFinder);
+	//o1.printSubTree(dataFinder);
 	o1.write("output.txt");
+
+	o2.addRoot("DA");
+	o2.addRoot("DG");
+	o2.addRoot("VM");
+	o2.addRoot("PG");
+	o2.hire(o2.find("DG"), "HG");
+	o2.hire(o2.find("VM"), "DK");
+	o2.hire(o2.find("PG"), "VB");
+	o2.hire(o2.find("PG"), "VA");
+	o2.hire(o2.find("VA"), "MW");
+	o2.hire(o2.find("VA"), "CB");
+	o2.hire(o2.find("MW"), "SD");
+	o2.hire(o2.find("MW"), "SM");
+	o2.fire("DK");
+	o2.fire("VB");
+	o2.fire("DA");
+	o2.fire("MW");
+	o2.write("ouput2.txt");
+
+
 	system("PAUSE");
 	return 0;
 
