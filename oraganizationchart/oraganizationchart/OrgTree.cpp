@@ -277,10 +277,21 @@ bool OrgTree::fire(string data) {
 	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling != nullptr) {
 		cout << "one side empyty node";
 		TreeNode* tempParent = foundNode->parent;
-		tempParent->leftMostChild = foundNode->rightSibling;
+		TreeNode* left = tempParent->leftMostChild;
+		if (left->data == foundNode->data) {
+			tempParent->leftMostChild = foundNode->rightSibling;
+			delete foundNode;
+			numElts--;
+			return true;
+		}
+		else{
+		while (left->rightSibling->data != foundNode->data) {
+			left = left->rightSibling;
+		}
+		left->rightSibling = foundNode->rightSibling;
 		delete foundNode;
-		numElts--;
-		return true;
+		numElts;
+		}
 	}
 
 }
