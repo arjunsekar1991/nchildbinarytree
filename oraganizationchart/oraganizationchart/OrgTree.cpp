@@ -293,5 +293,21 @@ bool OrgTree::fire(string data) {
 		numElts;
 		}
 	}
-
+	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling != nullptr) {
+		TreeNode* tempParent = foundNode->parent;
+		TreeNode* tempNode = foundNode->leftMostChild;
+		foundNode->leftMostChild->parent = foundNode->parent;
+		tempParent->leftMostChild = foundNode->leftMostChild;
+		while (tempNode->rightSibling != nullptr) {
+			tempNode = tempNode->rightSibling;
+			tempNode->parent = foundNode->parent;
+			
+		}
+		tempNode->rightSibling = foundNode->rightSibling;
+		numElts--;
+		delete foundNode;
+		//TreeNode* left = tempParent->leftMostChild;
+		//foundNode->leftMostChild=
+		return true;
+	}
 }
