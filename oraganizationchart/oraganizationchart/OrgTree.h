@@ -48,4 +48,6 @@ private:
 	unsigned int numElts;
 	TreeNode *currentRoot;
 	string filecontents;
+	bool silentRead;
+	int counter=1;
 };

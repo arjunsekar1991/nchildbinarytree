@@ -6,6 +6,7 @@
 #include "Tokenize.h"
 #include <sstream>
 #include <stack> 
+#include <iomanip>
 using namespace std;
 
 OrgTree::OrgTree()
@@ -13,6 +14,7 @@ OrgTree::OrgTree()
 	numElts = 0;
 	root = nullptr;
 	string filecontents = "";
+	bool silentread = false;
 }
 
 
@@ -127,8 +129,9 @@ void OrgTree::write(string filename) {
 	}
 	else {
 		TreeNode* temproot = this->getRoot();
+		silentRead = true;
 		printSubTree(temproot);
-		cout << endl;
+		//cout << endl;
 		//cout <<"printing file contents"<< filecontents;
 		ofstream ofs;
 		ofs.open(filename);
@@ -152,20 +155,54 @@ void OrgTree::write(string filename) {
 			}
 		ofs.close();
 	}
-
+	silentRead = false;
 	//}
 }
 
 void OrgTree::printSubTree(TreeNode* subTreeRoot) {
-	if (subTreeRoot == nullptr) {
-		return;
+	//int counter = 1;
+	if (!silentRead) {
+		//cout << ")";
+		
+		if (subTreeRoot == nullptr) {
+			//cout << spacing;
+			//cout << setw(10);
+			//counter++;
+			//cout << setw(counter * 10);
+			return;
+		}
+		cout << subTreeRoot->data<<endl;
+		if (subTreeRoot->leftMostChild != nullptr&& counter == 1)
+		{
+			subTreeRoot = subTreeRoot->leftMostChild;
+			cout << setw(counter * 10);
+			cout << subTreeRoot->data<<endl;
+			counter++;
+		}
+	//	cout << setw(counter*10);
+		//counter++;
+		cout << setw(counter * 10);
+		printSubTree(subTreeRoot->leftMostChild);
+		cout << setw(counter * 10);
+		printSubTree(subTreeRoot->rightSibling);
+		//counter++;
+		counter = 1;
 	}
-	cout << subTreeRoot->data;
-	filecontents= filecontents+ subTreeRoot->data+"^";
-	printSubTree(subTreeRoot->leftMostChild);
-	cout << ")";
-	filecontents = filecontents + ")" + "^";
-	printSubTree(subTreeRoot->rightSibling);
+	
+	
+	
+	if (silentRead) {
+		if (subTreeRoot == nullptr) {
+
+			return;
+		}
+		filecontents = filecontents + subTreeRoot->data + "^";
+		printSubTree(subTreeRoot->leftMostChild);
+		filecontents = filecontents + ")" + "^";
+		printSubTree(subTreeRoot->rightSibling);
+	}
+
+	
 }
 
 unsigned int OrgTree::getSize() {
@@ -197,7 +234,7 @@ TreeNode* OrgTree::find(string searchdata) {
 			return currentNode;
 		}
 		else {
-			cout << currentNode->data << " ";
+			//cout << currentNode->data << " ";
 
 			// push right child of popped node to the stack
 			if (currentNode->rightSibling)
@@ -210,8 +247,7 @@ TreeNode* OrgTree::find(string searchdata) {
 
 		returnValue = nullptr;
 
-		// important note - right child is pushed first so that left child
-		// is processed first (FIFO order)
+
 	}
 	return returnValue;
 }

@@ -46,9 +46,12 @@ int main() {
 	o1.read("input.txt");
 	//TreeNode* rootAddress = o1.getRoot();
 	TreeNode* dataFinder;
-	o1.write("output.txt");
-	cout << "size of organization" << o1.getSize();
-	dataFinder = o1.find("CB1");
+	//o1.write("output.txt");
+	//cout << "size of organization" << o1.getSize();
+	dataFinder = o1.find("VM");
+
+	o1.printSubTree(dataFinder);
+	//o1.write("output.txt");
 	system("PAUSE");
 	return 0;
 
