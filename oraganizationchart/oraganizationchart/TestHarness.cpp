@@ -42,8 +42,8 @@ int main() {
 	//o1.write("output.txt");
 	//o2.read("output.txt");
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
-	OrgTree o1,o2;
-	o1.read("input.txt");
+	OrgTree o1,o2,o3;
+	//o1.read("input.txt");
 	//TreeNode* rootAddress = o1.getRoot();
 	//TreeNode* dataFinder;
 	//o1.write("output.txt");
@@ -58,9 +58,9 @@ int main() {
 	//o1.fire("DA");
 	//o1.fire("MW");
 	//o1.printSubTree(dataFinder);
-	o1.write("output.txt");
+	//o1.write("output.txt");
 
-	o2.addRoot("DA");
+	/*o2.addRoot("DA");
 	o2.addRoot("DG");
 	o2.addRoot("VM");
 	o2.addRoot("PG");
@@ -76,8 +76,36 @@ int main() {
 	o2.fire("VB");
 	o2.fire("DA");
 	o2.fire("MW");
-	o2.write("ouput2.txt");
+	o2.write("ouput2.txt");*/
 
+	o3.addRoot("DA");
+	o3.addRoot("DG");
+	o3.addRoot("VM");
+	o3.addRoot("PG");
+	
+	o3.hire(o3.find("DG"), "HG");
+	o3.hire(o3.find("VM"), "DK");
+	o3.hire(o3.find("PG"), "VB");
+	o3.hire(o3.find("PG"), "VA");
+	o3.hire(o3.find("VA"), "MW");
+	o3.hire(o3.find("VA"), "CB");
+	o3.hire(o3.find("MW"), "SD");
+	o3.hire(o3.find("MW"), "SM");
+	o3.fire("HG");
+	o3.fire("VB");
+	o3.fire("VM");
+	//o3.fire("PG");
+	//o3.fire("HG");
+	o3.fire("DK");
+	//o3.fire("VB");
+	o3.fire("VA");
+	o3.fire("MW");
+	o3.fire("CB");
+	o3.fire("SD");
+	o3.fire("SM");
+	
+	o3.write("ouput3.txt");
+	
 
 	system("PAUSE");
 	return 0;

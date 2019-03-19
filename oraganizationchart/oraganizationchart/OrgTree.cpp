@@ -106,7 +106,7 @@ bool OrgTree::read(string filename) {
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
 	//if(currentRoot==nullptr)
-	currentRoot = find(treeNode->data);
+		currentRoot = find(treeNode->data);
 	numElts++;
 	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;
@@ -293,13 +293,15 @@ bool OrgTree::fire(string data) {
 		return false;
 	}
 	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling == nullptr) {
-		//cout << "leaf node";
+		//cout << "leaf node";if(
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
 		while (left->rightSibling->data != foundNode->data) {
 			left = left->rightSibling;
 			delete foundNode;
 		}
+		delete foundNode;
+
 		left->rightSibling = nullptr;
 		numElts--;
 		return true;
@@ -326,20 +328,58 @@ bool OrgTree::fire(string data) {
 	}
 	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling != nullptr) {
 		TreeNode* tempParent = foundNode->parent;
-		TreeNode* tempNode = foundNode->leftMostChild;
-		foundNode->leftMostChild->parent = foundNode->parent;
-		tempParent->leftMostChild = foundNode->leftMostChild;
-		while (tempNode->rightSibling != nullptr) {
-			tempNode = tempNode->rightSibling;
-			tempNode->parent = foundNode->parent;
+		TreeNode* fixingchilds = foundNode->leftMostChild;
+		TreeNode* left = foundNode->parent->leftMostChild;
+		if (left->data == foundNode->data) {
+			foundNode->leftMostChild->parent = tempParent;
+			tempParent->leftMostChild = foundNode->leftMostChild;
+			foundNode->leftMostChild->rightSibling = foundNode->rightSibling;
+			delete foundNode;
+			numElts--;
+
+		}else{
+		while (fixingchilds->rightSibling != nullptr) {
 			
+			fixingchilds->parent = left->parent;
+
+			fixingchilds = fixingchilds->rightSibling;
+
 		}
-		tempNode->rightSibling = foundNode->rightSibling;
+		fixingchilds->parent = left->parent;
+		left->rightSibling = foundNode->leftMostChild;
 		numElts--;
 		delete foundNode;
 		//TreeNode* left = tempParent->leftMostChild;
 		//foundNode->leftMostChild=
 		return true;
+		}
+	}
+
+	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling == nullptr) {
+		TreeNode* tempParent = foundNode->parent;
+		TreeNode* left = foundNode->parent->leftMostChild;
+		TreeNode* fixingChilds = foundNode->leftMostChild;
+	
+		
+		while (left->rightSibling->data != foundNode->data) {
+			left = left->rightSibling;
+		}
+		
+	//	foundNode->leftMostChild->parent = left->parent;
+		left->rightSibling = foundNode->leftMostChild;
+
+		while (fixingChilds->rightSibling != nullptr) {
+			fixingChilds->parent = nullptr;
+			fixingChilds->parent = tempParent;
+			fixingChilds = fixingChilds->rightSibling;
+		}
+		fixingChilds->parent = tempParent;
+		
+
+		delete foundNode;
+		numElts--;
+		return true;
+	
 	}
 	return false;
 }
