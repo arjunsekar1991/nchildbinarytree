@@ -71,11 +71,13 @@ bool OrgTree::read(string filename) {
 			if (currentRoot == root ) {
 				//getline(ifs, junk);
 				if (ifs.eof()) {
-					cout << "valid file";
+				//	cout << "valid file";
+					
 					return true;
 				}
 				else {
-					cout << "Invalid file sequence";
+					//cout << "Invalid file sequence";
+					cerr << "Invalid file";
 					return false;
 				}
 				break;
@@ -212,7 +214,13 @@ unsigned int OrgTree::getSize() {
 TreeNode* OrgTree::getRoot() {
 	return root;
 }
+TreeNode* OrgTree::leftmostChild(TreeNode* node) {
+	return node->leftMostChild;
+}
 
+TreeNode* OrgTree::rightSibling(TreeNode* node) {
+	return node->rightSibling;
+}
 TreeNode* OrgTree::find(string searchdata) {
 
 	if (root == nullptr)
