@@ -163,32 +163,10 @@ void OrgTree::write(string filename) {
 
 void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 	//int counter = 1;
+	
+	
 	if (!silentRead) {
-		//cout << ")";
-		
-		if (subTreeRoot == nullptr) {
-			//cout << spacing;
-			//cout << setw(10);
-			//counter++;
-			//cout << setw(counter * 10);
-			return;
-		}
-		cout << subTreeRoot->data<<endl;
-		if (subTreeRoot->leftMostChild != nullptr&& counter == 1)
-		{
-			subTreeRoot = subTreeRoot->leftMostChild;
-			cout << setw(counter * 10);
-			cout << subTreeRoot->data<<endl;
-			counter++;
-		}
-	//	cout << setw(counter*10);
-		//counter++;
-		cout << setw(counter * 10);
-		printSubTree(subTreeRoot->leftMostChild);
-		cout << setw(counter * 10);
-		printSubTree(subTreeRoot->rightSibling);
-		//counter++;
-		counter = 1;
+// a more comprehensive logic is required here
 	}
 	
 	
