@@ -105,6 +105,8 @@ bool OrgTree::read(string filename) {
 
 void OrgTree::hire(TreeNode* treeNode, string data) {
 	TreeNode* temp = new TreeNode(data);
+	if(currentRoot==nullptr)
+		currentRoot = find(treeNode->data);
 	numElts++;
 	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;
