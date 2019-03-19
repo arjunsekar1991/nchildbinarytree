@@ -193,11 +193,24 @@ TreeNode* OrgTree::getRoot() {
 	return root;
 }
 TreeNode* OrgTree::leftmostChild(TreeNode* node) {
+	if (node == nullptr) {
+		return nullptr;
+	}
+	if (node->leftMostChild != nullptr)	
 	return node->leftMostChild;
+	else
+		return nullptr;
 }
 
 TreeNode* OrgTree::rightSibling(TreeNode* node) {
-	return node->rightSibling;
+	if (node == nullptr) {
+		return nullptr;
+	}
+	if (node->rightSibling != nullptr)
+		return node->rightSibling;
+	else
+		return nullptr;
+
 }
 TreeNode* OrgTree::find(string searchdata) {
 
@@ -236,4 +249,38 @@ TreeNode* OrgTree::find(string searchdata) {
 
 	}
 	return returnValue;
+}
+
+bool OrgTree::fire(string data) {
+	TreeNode* foundNode = this->find(data);
+	if (foundNode == nullptr) {
+		cout << "Node not found";
+		return false;
+
+	}
+	if (root == foundNode) {
+		cout << "Root cannot be fired";
+		return false;
+	}
+	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling == nullptr) {
+		cout << "leaf node";
+		TreeNode* tempParent = foundNode->parent;
+		TreeNode* left = tempParent->leftMostChild;
+		while (left->rightSibling->data != foundNode->data) {
+			left = left->rightSibling;
+			delete foundNode;
+		}
+		left->rightSibling = nullptr;
+		numElts--;
+		return true;
+	}
+	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling != nullptr) {
+		cout << "one side empyty node";
+		TreeNode* tempParent = foundNode->parent;
+		tempParent->leftMostChild = foundNode->rightSibling;
+		delete foundNode;
+		numElts--;
+		return true;
+	}
+
 }
