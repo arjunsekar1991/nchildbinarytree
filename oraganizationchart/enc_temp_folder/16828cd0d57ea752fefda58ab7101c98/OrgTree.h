@@ -42,7 +42,7 @@ public:
 	bool read(string);
 	void write(string);
 	void hire(TreeNode* node,string);
-	bool fire(string);
+//	bool fire(string)
 private:
 	TreeNode *root;
 	unsigned int numElts;

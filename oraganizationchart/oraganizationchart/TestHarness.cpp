@@ -48,10 +48,14 @@ int main() {
 	TreeNode* dataFinder;
 	//o1.write("output.txt");
 	//cout << "size of organization" << o1.getSize();
-	dataFinder = o1.find("VM");
+	dataFinder = o1.find("DK");
+	TreeNode* lefchild= o1.leftmostChild(dataFinder);
 
-	o1.printSubTree(dataFinder);
-	//o1.write("output.txt");
+	TreeNode* rightchild = o1.rightSibling(dataFinder);
+
+
+//	o1.printSubTree(dataFinder);
+	o1.write("output.txt");
 	system("PAUSE");
 	return 0;
 
