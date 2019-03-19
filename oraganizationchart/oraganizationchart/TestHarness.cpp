@@ -53,9 +53,9 @@ int main() {
 
 	TreeNode* rightchild = o1.rightSibling(dataFinder);
 
-	//o1.fire("DK");
-	//o1.fire("VB");
-	//o1.fire("DA");
+	o1.fire("DK");
+	o1.fire("VB");
+	o1.fire("DA");
 	o1.fire("MW");
 //	o1.printSubTree(dataFinder);
 	o1.write("output.txt");

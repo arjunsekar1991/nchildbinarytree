@@ -167,6 +167,7 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 	
 	if (!silentRead) {
 // a more comprehensive logic is required here
+		cout << "write your logic here";
 	}
 	
 	
@@ -292,6 +293,7 @@ bool OrgTree::fire(string data) {
 		delete foundNode;
 		numElts;
 		}
+		return true;
 	}
 	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling != nullptr) {
 		TreeNode* tempParent = foundNode->parent;
@@ -310,4 +312,5 @@ bool OrgTree::fire(string data) {
 		//foundNode->leftMostChild=
 		return true;
 	}
+	return false;
 }
