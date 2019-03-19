@@ -162,12 +162,39 @@ void OrgTree::write(string filename) {
 }
 
 void OrgTree::printSubTree(TreeNode* subTreeRoot) {
-	//int counter = 1;
+
 	
 	
 	if (!silentRead) {
 // a more comprehensive logic is required here
-		cout << "write your logic here";
+		//cout << "write your logic here";
+		stack<TreeNode*> stack;
+		if (subTreeRoot == nullptr) {
+			return;
+		}
+		cout << subTreeRoot->data;
+		
+		if(subTreeRoot->leftMostChild!=nullptr)
+
+		stack.push(subTreeRoot->leftMostChild);
+		while (!stack.empty())
+		{
+			
+			
+			TreeNode* currentNode = stack.top();
+			cout << currentNode->data;		
+			stack.pop();
+	
+			if (currentNode->rightSibling!=nullptr){
+				stack.push(currentNode->rightSibling);
+//			
+			}
+			// push left child of popped node to the stack
+			if (currentNode->leftMostChild!=nullptr){
+				stack.push(currentNode->leftMostChild);
+		
+			}
+		}
 	}
 	
 	
@@ -237,11 +264,11 @@ TreeNode* OrgTree::find(string searchdata) {
 			//cout << currentNode->data << " ";
 
 			// push right child of popped node to the stack
-			if (currentNode->rightSibling)
+			if (currentNode->rightSibling!=nullptr)
 				stack.push(currentNode->rightSibling);
 
 			// push left child of popped node to the stack
-			if (currentNode->leftMostChild)
+			if (currentNode->leftMostChild!=nullptr)
 				stack.push(currentNode->leftMostChild);
 		}
 
