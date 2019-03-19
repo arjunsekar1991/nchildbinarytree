@@ -254,16 +254,16 @@ TreeNode* OrgTree::find(string searchdata) {
 bool OrgTree::fire(string data) {
 	TreeNode* foundNode = this->find(data);
 	if (foundNode == nullptr) {
-		cout << "Node not found";
+		//cout << "Node not found";
 		return false;
 
 	}
 	if (root == foundNode) {
-		cout << "Root cannot be fired";
+		//cout << "Root cannot be fired";
 		return false;
 	}
 	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling == nullptr) {
-		cout << "leaf node";
+		//cout << "leaf node";
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
 		while (left->rightSibling->data != foundNode->data) {
@@ -275,7 +275,7 @@ bool OrgTree::fire(string data) {
 		return true;
 	}
 	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling != nullptr) {
-		cout << "one side empyty node";
+		//cout << "one side empyty node";
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
 		if (left->data == foundNode->data) {
