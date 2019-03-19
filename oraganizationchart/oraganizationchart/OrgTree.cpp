@@ -64,18 +64,18 @@ bool OrgTree::read(string filename) {
 		
 		if (ifs.peek() == ')') {
 			isRootNeeded = false;
-			secondtolastjunk = previousjunk;
-			previousjunk = junk;
+		//	secondtolastjunk = previousjunk;
+			//previousjunk = junk;
 			getline(ifs, junk);
 			
-			if (currentRoot == root && previousjunk == junk&&junk==secondtolastjunk) {
+			if (currentRoot == root ) {
 				//getline(ifs, junk);
 				if (ifs.eof()) {
-					//cout << "valid file";
+					cout << "valid file";
 					return true;
 				}
 				else {
-					//cout << "Invalid file sequence";
+					cout << "Invalid file sequence";
 					return false;
 				}
 				break;
