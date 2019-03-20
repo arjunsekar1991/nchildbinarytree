@@ -368,7 +368,12 @@ bool OrgTree::fire(string data) {
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = foundNode->parent->leftMostChild;
 		TreeNode* fixingChilds = foundNode->leftMostChild;
-	
+		if (foundNode->data == left->data) {
+			foundNode->leftMostChild->parent = foundNode->parent;
+			tempParent->leftMostChild = foundNode->leftMostChild;
+			delete foundNode;
+			numElts;
+		}else{
 		
 		while (left->rightSibling->data != foundNode->data) {
 			left = left->rightSibling;
@@ -389,6 +394,6 @@ bool OrgTree::fire(string data) {
 		numElts--;
 		return true;
 	
-	}
+	}}
 	return false;
 }
