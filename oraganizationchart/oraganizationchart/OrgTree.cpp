@@ -20,7 +20,7 @@ OrgTree::OrgTree()
 
 OrgTree::~OrgTree()
 {
-	delete currentRoot;
+//	delete currentRoot;
 	delete root;
 }
 
@@ -33,14 +33,14 @@ void OrgTree::addRoot(string title,string name) {
 		numElts = numElts + 1;
 		currentTreeNode->leftMostChild = root;
 		root = currentTreeNode;
-		currentRoot = root;
+		//currentRoot = root;
 
 
 	}
 	if (numElts == 0) {
 		this->root = new TreeNode(title, name);
 		numElts = numElts + 1;
-		this->currentRoot = root;
+		//this->currentRoot = root;
 	}
 
 
@@ -51,7 +51,7 @@ bool OrgTree::read(string filename) {
 	ifstream ifs;
 	if(!ifs.is_open())
 		ifs.open(filename);
-	
+	TreeNode *currentRoot=nullptr;
 	bool isRootNeeded=true;
 	while (!ifs.eof())
 	{	
@@ -64,6 +64,7 @@ bool OrgTree::read(string filename) {
 			
 			addRoot(tokens[0],tokens[1]);
 			isRootNeeded = false;
+			currentRoot = root;
 
 		}
 
@@ -71,7 +72,7 @@ bool OrgTree::read(string filename) {
 		if (ifs.peek() == ')') {
 			isRootNeeded = false;
 		//	secondtolastjunk = previousjunk;
-			//previousjunk = junk;
+		//	previousjunk = junk;
 			getline(ifs, junk);
 			
 			if (currentRoot == root ) {
@@ -97,8 +98,11 @@ bool OrgTree::read(string filename) {
 			vector <string> tokens;
 			getline(ifs, data);
 			tokens = StringSplit(data, ",", false);
+			
 			hire(currentRoot, tokens[0],tokens[1]);
+			currentRoot = find(tokens[0]);
 			junk = data;
+			
 
 		//	isRootNeeded = true;
 		
@@ -113,8 +117,8 @@ bool OrgTree::read(string filename) {
 
 void OrgTree::hire(TreeNode* treeNode, string newTitle, string name) {
 	TreeNode* temp = new TreeNode(newTitle, name);
-	if(currentRoot==nullptr)
-		currentRoot = find(treeNode->title);
+//	if(currentRoot==nullptr)
+	TreeNode* currentRoot = find(treeNode->title);
 	numElts++;
 	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;

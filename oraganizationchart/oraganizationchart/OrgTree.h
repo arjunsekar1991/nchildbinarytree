@@ -48,7 +48,7 @@ public:
 private:
 	TreeNode* root;
 	unsigned int numElts;
-	TreeNode* currentRoot;
+	//TreeNode* currentRoot;
 	string filecontents;
 	bool silentRead;
 	int counter=1;

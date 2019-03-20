@@ -109,7 +109,7 @@ int main() {
 	o3.write("ouput3.txt");
 	
 
-	system("PAUSE");
+//	system("PAUSE");
 	return 0;
 
 }
