@@ -2,7 +2,8 @@
 #include <string>
 #include <iostream>
 #include <exception>
-
+#define TREENODEPTR TreeNode*
+#define TREENULLPTR NULL
 
 using namespace std;
 
@@ -10,9 +11,9 @@ class TreeNode {
 public:
 	string title;
 	string name;
-	TreeNode *parent;
-	TreeNode *leftMostChild;
-	TreeNode *rightSibling;
+	TREENODEPTR parent;
+	TREENODEPTR leftMostChild;
+	TREENODEPTR rightSibling;
 
 	TreeNode(string datainput,string inputname) {
 		parent = nullptr;
@@ -36,17 +37,17 @@ public:
 	~OrgTree();           // Destructor
 	void addRoot(string,string);
 	unsigned int getSize();
-	TreeNode* getRoot();
-	TreeNode* leftmostChild(TreeNode* node);
-	TreeNode* rightSibling(TreeNode* node);
-	void printSubTree(TreeNode* subTreeRoot);
-	TreeNode* find(string);
+	TREENODEPTR getRoot();
+	TREENODEPTR leftmostChild(TREENODEPTR node);
+	TREENODEPTR rightSibling(TREENODEPTR node);
+	void printSubTree(TREENODEPTR subTreeRoot);
+	TREENODEPTR find(string);
 	bool read(string);
 	void write(string);
-	void hire(TreeNode* node,string,string);
+	void hire(TREENODEPTR node,string,string);
 	bool fire(string);
 private:
-	TreeNode* root;
+	TREENODEPTR root;
 	unsigned int numElts;
 	//TreeNode* currentRoot;
 	string filecontents;
