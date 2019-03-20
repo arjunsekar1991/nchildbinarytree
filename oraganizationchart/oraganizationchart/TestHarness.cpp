@@ -103,6 +103,8 @@ int main() {
 	o3.fire("CB");
 	o3.fire("SD");
 	o3.fire("SM");
+	o3.fire("DG");
+	o3.fire("DA");
 	
 	o3.write("ouput3.txt");
 	

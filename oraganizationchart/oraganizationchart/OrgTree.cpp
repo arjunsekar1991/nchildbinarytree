@@ -298,7 +298,7 @@ bool OrgTree::fire(string data) {
 		TreeNode* left = tempParent->leftMostChild;
 		while (left->rightSibling->data != foundNode->data) {
 			left = left->rightSibling;
-			delete foundNode;
+			//delete foundNode;
 		}
 		delete foundNode;
 
@@ -330,10 +330,17 @@ bool OrgTree::fire(string data) {
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* fixingchilds = foundNode->leftMostChild;
 		TreeNode* left = foundNode->parent->leftMostChild;
+
 		if (left->data == foundNode->data) {
 			foundNode->leftMostChild->parent = tempParent;
 			tempParent->leftMostChild = foundNode->leftMostChild;
-			foundNode->leftMostChild->rightSibling = foundNode->rightSibling;
+			while (fixingchilds->rightSibling != nullptr) {
+				
+				fixingchilds = fixingchilds->rightSibling;
+				fixingchilds->parent = tempParent;
+			}
+			fixingchilds ->rightSibling = foundNode->rightSibling;
+			fixingchilds->rightSibling->parent = foundNode->parent;
 			delete foundNode;
 			numElts--;
 
@@ -346,6 +353,8 @@ bool OrgTree::fire(string data) {
 
 		}
 		fixingchilds->parent = left->parent;
+		if (foundNode->rightSibling != nullptr)
+			fixingchilds->rightSibling = foundNode->rightSibling;
 		left->rightSibling = foundNode->leftMostChild;
 		numElts--;
 		delete foundNode;
