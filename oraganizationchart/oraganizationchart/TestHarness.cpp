@@ -44,9 +44,11 @@ int main() {
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
 	OrgTree o1,o2,o3;
 	o1.read("input.txt");
+	o1.printSubTree(o1.find("VP Sales"));
+
 	//TreeNode* rootAddress = o1.getRoot();
 	//TreeNode* dataFinder;
-	o1.write("output.txt");
+	//o1.write("output.txt");
 	//cout << "size of organization" << o1.getSize();
 	//dataFinder = o1.find("VM");
 	//TreeNode* lefchild= o1.leftmostChild(dataFinder);
@@ -77,7 +79,7 @@ int main() {
 	o2.fire("DA");
 	o2.fire("MW");
 	o2.write("ouput2.txt");*/
-	
+	/*
 	o3.addRoot("Digital Media Specialist","Al Gore");
 	o3.addRoot("Director of Marketing","George Lucas");
 	o3.addRoot("VP Sales","Mark Zuckerberg");
@@ -107,9 +109,9 @@ int main() {
 //	o3.fire("Digital Media Specialist");
 	
 	o3.write("ouput3.txt");
-	
+	*/
 
-//	system("PAUSE");
+	system("PAUSE");
 	return 0;
 
 }
