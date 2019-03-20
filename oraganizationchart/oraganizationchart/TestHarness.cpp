@@ -104,7 +104,7 @@ int main() {
 	o3.fire("Software Engineer I");
 	o3.fire("Software Engineer II");
 	o3.fire("Director of Marketing");
-	o3.fire("Digital Media Specialist");
+//	o3.fire("Digital Media Specialist");
 	
 	o3.write("ouput3.txt");
 	

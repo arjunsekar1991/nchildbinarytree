@@ -147,6 +147,8 @@ void OrgTree::write(string filename) {
 		TreeNode* temproot = this->getRoot();
 		silentRead = true;
 		printSubTree(temproot);
+		filecontents.pop_back();
+		filecontents.pop_back();
 		//cout << endl;
 		//cout <<"printing file contents"<< filecontents;
 		ofstream ofs;
@@ -215,12 +217,12 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 	
 	if (silentRead) {
 		if (subTreeRoot == nullptr) {
-
+			filecontents = filecontents + ")" + "^";
 			return;
 		}
 		filecontents = filecontents + subTreeRoot->title+","+ subTreeRoot->name + "^";
 		printSubTree(subTreeRoot->leftMostChild);
-		filecontents = filecontents + ")" + "^";
+		
 		printSubTree(subTreeRoot->rightSibling);
 	}
 
