@@ -20,22 +20,25 @@ OrgTree::OrgTree()
 
 OrgTree::~OrgTree()
 {
+	delete currentRoot;
+	delete root;
 }
 
-void OrgTree::addRoot(string data) {
+void OrgTree::addRoot(string title,string name) {
 	TreeNode* currentTreeNode;
 	if (numElts != 0) {
-		currentTreeNode = new TreeNode(data);
+		currentTreeNode = new TreeNode(title, name);
 
 		root->parent = currentTreeNode;
 		numElts = numElts + 1;
 		currentTreeNode->leftMostChild = root;
 		root = currentTreeNode;
+		currentRoot = root;
 
 
 	}
 	if (numElts == 0) {
-		this->root = new TreeNode(data);
+		this->root = new TreeNode(title, name);
 		numElts = numElts + 1;
 		this->currentRoot = root;
 	}
@@ -55,8 +58,11 @@ bool OrgTree::read(string filename) {
 		
 		while (ifs.peek() != ')' && !ifs.eof()&& isRootNeeded) {
 			getline(ifs, data);
+			vector <string> tokens;
+			tokens = StringSplit(data, ",", false);
 			junk = data;
-			addRoot(data);
+			
+			addRoot(tokens[0],tokens[1]);
 			isRootNeeded = false;
 
 		}
@@ -88,8 +94,10 @@ bool OrgTree::read(string filename) {
 			
 		}
 		while (ifs.peek() != ')'&& !isRootNeeded) {
+			vector <string> tokens;
 			getline(ifs, data);
-			hire(currentRoot, data);
+			tokens = StringSplit(data, ",", false);
+			hire(currentRoot, tokens[0],tokens[1]);
 			junk = data;
 
 		//	isRootNeeded = true;
@@ -103,10 +111,10 @@ bool OrgTree::read(string filename) {
 	return true;
 }
 
-void OrgTree::hire(TreeNode* treeNode, string data) {
-	TreeNode* temp = new TreeNode(data);
-	//if(currentRoot==nullptr)
-		currentRoot = find(treeNode->data);
+void OrgTree::hire(TreeNode* treeNode, string newTitle, string name) {
+	TreeNode* temp = new TreeNode(newTitle, name);
+	if(currentRoot==nullptr)
+		currentRoot = find(treeNode->title);
 	numElts++;
 	if (currentRoot->leftMostChild == nullptr) {
 		currentRoot->leftMostChild = temp;
@@ -174,7 +182,7 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 		if (subTreeRoot == nullptr) {
 			return;
 		}
-		cout << subTreeRoot->data;
+		cout << subTreeRoot->title;
 		
 		if(subTreeRoot->leftMostChild!=nullptr)
 
@@ -184,7 +192,7 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 			
 			
 			TreeNode* currentNode = stack.top();
-			cout << currentNode->data;		
+			cout << currentNode->title;		
 			stack.pop();
 	
 			if (currentNode->rightSibling!=nullptr){
@@ -206,7 +214,7 @@ void OrgTree::printSubTree(TreeNode* subTreeRoot) {
 
 			return;
 		}
-		filecontents = filecontents + subTreeRoot->data + "^";
+		filecontents = filecontents + subTreeRoot->title+","+ subTreeRoot->name + "^";
 		printSubTree(subTreeRoot->leftMostChild);
 		filecontents = filecontents + ")" + "^";
 		printSubTree(subTreeRoot->rightSibling);
@@ -242,7 +250,7 @@ TreeNode* OrgTree::rightSibling(TreeNode* node) {
 		return nullptr;
 
 }
-TreeNode* OrgTree::find(string searchdata) {
+TreeNode* OrgTree::find(string title) {
 
 	if (root == nullptr)
 		return nullptr;
@@ -257,7 +265,7 @@ TreeNode* OrgTree::find(string searchdata) {
 		// pop a node from the stack and print it
 		TreeNode* currentNode = stack.top();
 		stack.pop();
-		if (currentNode->data == searchdata)
+		if (currentNode->title == title)
 		{
 			returnValue = currentNode;
 			return currentNode;
@@ -281,8 +289,8 @@ TreeNode* OrgTree::find(string searchdata) {
 	return returnValue;
 }
 
-bool OrgTree::fire(string data) {
-	TreeNode* foundNode = this->find(data);
+bool OrgTree::fire(string formerTitle) {
+	TreeNode* foundNode = this->find(formerTitle);
 	if (foundNode == nullptr) {
 		//cout << "Node not found";
 		return false;
@@ -296,13 +304,13 @@ bool OrgTree::fire(string data) {
 		//cout << "leaf node";if(
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
-		if (left->data == foundNode->data&&foundNode->parent==root) {
+		if (left->title == foundNode->title&&foundNode->parent==tempParent) {
 			tempParent->leftMostChild = nullptr;
 			delete foundNode;
 			numElts--;
 			return true;
 		}else{
-		while (left->rightSibling->data != foundNode->data) {
+		while (left->rightSibling->title != foundNode->title) {
 			left = left->rightSibling;
 			//delete foundNode;
 		}
@@ -317,14 +325,14 @@ bool OrgTree::fire(string data) {
 		//cout << "one side empyty node";
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
-		if (left->data == foundNode->data) {
+		if (left->title == foundNode->title) {
 			tempParent->leftMostChild = foundNode->rightSibling;
 			delete foundNode;
 			numElts--;
 			return true;
 		}
 		else{
-		while (left->rightSibling->data != foundNode->data) {
+		while (left->rightSibling->title != foundNode->title) {
 			left = left->rightSibling;
 		}
 		left->rightSibling = foundNode->rightSibling;
@@ -338,7 +346,7 @@ bool OrgTree::fire(string data) {
 		TreeNode* fixingchilds = foundNode->leftMostChild;
 		TreeNode* left = foundNode->parent->leftMostChild;
 
-		if (left->data == foundNode->data) {
+		if (left->title == foundNode->title) {
 			foundNode->leftMostChild->parent = tempParent;
 			tempParent->leftMostChild = foundNode->leftMostChild;
 			while (fixingchilds->rightSibling != nullptr) {
@@ -376,14 +384,14 @@ bool OrgTree::fire(string data) {
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = foundNode->parent->leftMostChild;
 		TreeNode* fixingChilds = foundNode->leftMostChild;
-		if (foundNode->data == left->data) {
+		if (foundNode->title == left->title) {
 			foundNode->leftMostChild->parent = foundNode->parent;
 			tempParent->leftMostChild = foundNode->leftMostChild;
 			delete foundNode;
 			numElts--;
 		}else{
 		
-		while (left->rightSibling->data != foundNode->data) {
+		while (left->rightSibling->title != foundNode->title) {
 			left = left->rightSibling;
 		}
 		

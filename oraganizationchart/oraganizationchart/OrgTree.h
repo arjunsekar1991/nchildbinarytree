@@ -8,16 +8,18 @@ using namespace std;
 
 class TreeNode {
 public:
-	string data;
+	string title;
+	string name;
 	TreeNode *parent;
 	TreeNode *leftMostChild;
 	TreeNode *rightSibling;
 
-	TreeNode(string datainput) {
+	TreeNode(string datainput,string inputname) {
 		parent = nullptr;
 		leftMostChild = nullptr;
 		rightSibling = nullptr;
-		data = datainput;
+		title = datainput;
+		name = inputname;
 
 	}
 	~TreeNode() {
@@ -32,7 +34,7 @@ public:
 	
 	OrgTree();
 	~OrgTree();           // Destructor
-	void addRoot(string);
+	void addRoot(string,string);
 	unsigned int getSize();
 	TreeNode* getRoot();
 	TreeNode* leftmostChild(TreeNode* node);
@@ -41,7 +43,7 @@ public:
 	TreeNode* find(string);
 	bool read(string);
 	void write(string);
-	void hire(TreeNode* node,string);
+	void hire(TreeNode* node,string,string);
 	bool fire(string);
 private:
 	TreeNode* root;

@@ -43,10 +43,10 @@ int main() {
 	//o2.read("output.txt");
 	//o2.printSubTree(o2.getRoot()); //printSubTree from root
 	OrgTree o1,o2,o3;
-	//o1.read("input.txt");
+	o1.read("input.txt");
 	//TreeNode* rootAddress = o1.getRoot();
 	//TreeNode* dataFinder;
-	//o1.write("output.txt");
+	o1.write("output.txt");
 	//cout << "size of organization" << o1.getSize();
 	//dataFinder = o1.find("VM");
 	//TreeNode* lefchild= o1.leftmostChild(dataFinder);
@@ -77,34 +77,34 @@ int main() {
 	o2.fire("DA");
 	o2.fire("MW");
 	o2.write("ouput2.txt");*/
-
-	o3.addRoot("DA");
-	o3.addRoot("DG");
-	o3.addRoot("VM");
-	o3.addRoot("PG");
 	
-	o3.hire(o3.find("DG"), "HG");
-	o3.hire(o3.find("VM"), "DK");
-	o3.hire(o3.find("PG"), "VB");
-	o3.hire(o3.find("PG"), "VA");
-	o3.hire(o3.find("VA"), "MW");
-	o3.hire(o3.find("VA"), "CB");
-	o3.hire(o3.find("MW"), "SD");
-	o3.hire(o3.find("MW"), "SM");
-	o3.fire("HG");
-	o3.fire("VB");
-	o3.fire("VM");
+	o3.addRoot("Digital Media Specialist","Al Gore");
+	o3.addRoot("Director of Marketing","George Lucas");
+	o3.addRoot("VP Sales","Mark Zuckerberg");
+	o3.addRoot("President", "George Orwell");
+	
+	o3.hire(o3.find("Director of Marketing"), "Head of Television and Print Advertising", "George Martin");
+	o3.hire(o3.find("VP Sales"), "Director of Public Relations", "Kurt Vonnegut");
+	o3.hire(o3.find("President"), "VP Operations", "Bill Gates");
+	o3.hire(o3.find("President"), "VP Software Development", "Ayn Rand");
+	o3.hire(o3.find("VP Software Development"), "MagicBag Team Leader", "Wil Wheaton");
+	o3.hire(o3.find("VP Software Development"), "Cloud Development", "Bob Ross");
+	o3.hire(o3.find("MagicBag Team Leader"), "Software Engineer I", "Donald Knuth");
+	o3.hire(o3.find("MagicBag Team Leader"), "Software Engineer II", "Marvin Minsky");
+	o3.fire("Head of Television and Print Advertising");
+	o3.fire("VP Operations");
+	o3.fire("VP Sales");
 	//o3.fire("PG");
 	//o3.fire("HG");
-	o3.fire("DK");
+	o3.fire("Director of Public Relations");
 	//o3.fire("VB");
-	o3.fire("VA");
-	o3.fire("MW");
-	o3.fire("CB");
-	o3.fire("SD");
-	o3.fire("SM");
-	o3.fire("DG");
-	o3.fire("DA");
+	o3.fire("VP Software Development");
+	o3.fire("MagicBag Team Leader");
+	o3.fire("Cloud Development");
+	o3.fire("Software Engineer I");
+	o3.fire("Software Engineer II");
+	o3.fire("Director of Marketing");
+	o3.fire("Digital Media Specialist");
 	
 	o3.write("ouput3.txt");
 	
