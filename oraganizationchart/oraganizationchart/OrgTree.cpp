@@ -296,6 +296,12 @@ bool OrgTree::fire(string data) {
 		//cout << "leaf node";if(
 		TreeNode* tempParent = foundNode->parent;
 		TreeNode* left = tempParent->leftMostChild;
+		if (left->data == foundNode->data&&foundNode->parent==root) {
+			tempParent->leftMostChild = nullptr;
+			delete foundNode;
+			numElts--;
+			return true;
+		}else{
 		while (left->rightSibling->data != foundNode->data) {
 			left = left->rightSibling;
 			//delete foundNode;
@@ -305,6 +311,7 @@ bool OrgTree::fire(string data) {
 		left->rightSibling = nullptr;
 		numElts--;
 		return true;
+		}
 	}
 	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling != nullptr) {
 		//cout << "one side empyty node";
@@ -322,7 +329,7 @@ bool OrgTree::fire(string data) {
 		}
 		left->rightSibling = foundNode->rightSibling;
 		delete foundNode;
-		numElts;
+		numElts--;
 		}
 		return true;
 	}
@@ -356,8 +363,9 @@ bool OrgTree::fire(string data) {
 		if (foundNode->rightSibling != nullptr)
 			fixingchilds->rightSibling = foundNode->rightSibling;
 		left->rightSibling = foundNode->leftMostChild;
-		numElts--;
+		
 		delete foundNode;
+		numElts--;
 		//TreeNode* left = tempParent->leftMostChild;
 		//foundNode->leftMostChild=
 		return true;
@@ -372,7 +380,7 @@ bool OrgTree::fire(string data) {
 			foundNode->leftMostChild->parent = foundNode->parent;
 			tempParent->leftMostChild = foundNode->leftMostChild;
 			delete foundNode;
-			numElts;
+			numElts--;
 		}else{
 		
 		while (left->rightSibling->data != foundNode->data) {
