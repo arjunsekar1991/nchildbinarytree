@@ -179,7 +179,7 @@ void OrgTree::write(string filename) {
 
 void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 
-	
+	int intendation = 4;
 	
 	if (!silentRead) {
 // a more comprehensive logic is required here
@@ -188,7 +188,7 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 		if (subTreeRoot == nullptr) {
 			return;
 		}
-		cout << subTreeRoot->title;
+		cout << subTreeRoot->title<<":"<<subTreeRoot->name<<endl;
 		
 		if(subTreeRoot->leftMostChild!=nullptr)
 
@@ -198,17 +198,22 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 			
 			
 			TREENODEPTR currentNode = stack.top();
-			cout << currentNode->title;		
+			cout << setw(intendation)<<"";;
+			cout << currentNode->title <<":"<<currentNode->name<<endl;
 			stack.pop();
 	
 			if (currentNode->rightSibling!=nullptr){
 				stack.push(currentNode->rightSibling);
-//			
+				intendation = intendation + 4;
+				
 			}
+			intendation = intendation - 4;
+
 			// push left child of popped node to the stack
 			if (currentNode->leftMostChild!=nullptr){
 				stack.push(currentNode->leftMostChild);
-		
+				intendation = intendation + 4;
+				
 			}
 		}
 	}

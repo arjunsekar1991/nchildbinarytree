@@ -52,5 +52,5 @@ private:
 	//TreeNode* currentRoot;
 	string filecontents;
 	bool silentRead;
-	int counter=1;
+	//int counter=1;
 };
