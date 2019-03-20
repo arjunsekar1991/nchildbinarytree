@@ -84,7 +84,7 @@ bool OrgTree::read(string filename) {
 				}
 				else {
 					//cout << "Invalid file sequence";
-					cerr << "Invalid file";
+					//cerr << "Invalid file";
 					return false;
 				}
 				break;
