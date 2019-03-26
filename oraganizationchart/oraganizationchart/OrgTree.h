@@ -15,16 +15,16 @@ public:
 	TREENODEPTR leftMostChild;
 	TREENODEPTR rightSibling;
 
-	TreeNode(string datainput,string inputname) {
-		parent = nullptr;
-		leftMostChild = nullptr;
-		rightSibling = nullptr;
-		title = datainput;
+	TreeNode(string inputTitle,string inputname) {
+		parent = TREENULLPTR;
+		leftMostChild = TREENULLPTR;
+		rightSibling = TREENULLPTR;
+		title = inputTitle;
 		name = inputname;
 
 	}
 	~TreeNode() {
-
+		
 	};
 };
 

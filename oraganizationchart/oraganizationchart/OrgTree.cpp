@@ -7,12 +7,13 @@
 #include <sstream>
 #include <stack> 
 #include <iomanip>
+//#define TREENULLPTR NULL
 using namespace std;
 
 OrgTree::OrgTree()
 {
 	numElts = 0;
-	root = nullptr;
+	root = TREENULLPTR;
 	string filecontents = "";
 	bool silentread = false;
 }
@@ -51,7 +52,7 @@ bool OrgTree::read(string filename) {
 	ifstream ifs;
 	if(!ifs.is_open())
 		ifs.open(filename);
-	TREENODEPTR currentRoot=nullptr;
+	TREENODEPTR currentRoot= TREENULLPTR;
 	bool isRootNeeded=true;
 	while (!ifs.eof())
 	{	
@@ -120,14 +121,14 @@ void OrgTree::hire(TREENODEPTR treeNode, string newTitle, string name) {
 //	if(currentRoot==nullptr)
 	TREENODEPTR currentRoot = find(treeNode->title);
 	numElts++;
-	if (currentRoot->leftMostChild == nullptr) {
+	if (currentRoot->leftMostChild == TREENULLPTR) {
 		currentRoot->leftMostChild = temp;
 		temp->parent = currentRoot;
 		currentRoot = currentRoot->leftMostChild;
 	}
 	else {
 		currentRoot = currentRoot->leftMostChild;
-		while (currentRoot->rightSibling!=nullptr)
+		while (currentRoot->rightSibling!= TREENULLPTR)
 		{
 			currentRoot = currentRoot->rightSibling;
 		}
@@ -140,7 +141,7 @@ void OrgTree::hire(TREENODEPTR treeNode, string newTitle, string name) {
 
 void OrgTree::write(string filename) {
 	filecontents = "";
-	if (root == nullptr){
+	if (root == TREENULLPTR){
 		cout << "Tree is empty";
 	}
 	else {
@@ -185,12 +186,12 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 // a more comprehensive logic is required here
 		//cout << "write your logic here";
 		stack<TREENODEPTR> stack;
-		if (subTreeRoot == nullptr) {
+		if (subTreeRoot == TREENULLPTR) {
 			return;
 		}
 		cout << subTreeRoot->title<<":"<<subTreeRoot->name<<endl;
 		
-		if(subTreeRoot->leftMostChild!=nullptr)
+		if(subTreeRoot->leftMostChild!= TREENULLPTR)
 
 		stack.push(subTreeRoot->leftMostChild);
 		while (!stack.empty())
@@ -202,7 +203,7 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 			cout << currentNode->title <<":"<<currentNode->name<<endl;
 			stack.pop();
 	
-			if (currentNode->rightSibling!=nullptr){
+			if (currentNode->rightSibling!= TREENULLPTR){
 				stack.push(currentNode->rightSibling);
 				intendation = intendation + 4;
 				
@@ -210,7 +211,7 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 			intendation = intendation - 4;
 
 			// push left child of popped node to the stack
-			if (currentNode->leftMostChild!=nullptr){
+			if (currentNode->leftMostChild!= TREENULLPTR){
 				stack.push(currentNode->leftMostChild);
 				intendation = intendation + 4;
 				
@@ -221,7 +222,7 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 	
 	
 	if (silentRead) {
-		if (subTreeRoot == nullptr) {
+		if (subTreeRoot == TREENULLPTR) {
 			filecontents = filecontents + ")" + "^";
 			return;
 		}
@@ -242,34 +243,34 @@ TREENODEPTR OrgTree::getRoot() {
 	return root;
 }
 TREENODEPTR OrgTree::leftmostChild(TREENODEPTR node) {
-	if (node == nullptr) {
-		return nullptr;
+	if (node == TREENULLPTR) {
+		return TREENULLPTR;
 	}
-	if (node->leftMostChild != nullptr)	
+	if (node->leftMostChild != TREENULLPTR)
 	return node->leftMostChild;
 	else
-		return nullptr;
+		return TREENULLPTR;
 }
 
 TREENODEPTR OrgTree::rightSibling(TREENODEPTR node) {
-	if (node == nullptr) {
-		return nullptr;
+	if (node == TREENULLPTR) {
+		return TREENULLPTR;
 	}
-	if (node->rightSibling != nullptr)
+	if (node->rightSibling != TREENULLPTR) 
 		return node->rightSibling;
 	else
-		return nullptr;
+		return TREENULLPTR;
 
 }
 TREENODEPTR OrgTree::find(string title) {
 
-	if (root == nullptr)
-		return nullptr;
+	if (root == TREENULLPTR)
+		return TREENULLPTR;
 
 
 	stack<TREENODEPTR> stack;
 	stack.push(root);
-	TREENODEPTR returnValue=nullptr;
+	TREENODEPTR returnValue= TREENULLPTR;
 	// run till stack is not empty
 	while (!stack.empty())
 	{
@@ -285,15 +286,15 @@ TREENODEPTR OrgTree::find(string title) {
 			//cout << currentNode->data << " ";
 
 			// push right child of popped node to the stack
-			if (currentNode->rightSibling!=nullptr)
+			if (currentNode->rightSibling!= TREENULLPTR)
 				stack.push(currentNode->rightSibling);
 
 			// push left child of popped node to the stack
-			if (currentNode->leftMostChild!=nullptr)
+			if (currentNode->leftMostChild!= TREENULLPTR)
 				stack.push(currentNode->leftMostChild);
 		}
 
-		returnValue = nullptr;
+		returnValue = TREENULLPTR;
 
 
 	}
@@ -302,7 +303,7 @@ TREENODEPTR OrgTree::find(string title) {
 
 bool OrgTree::fire(string formerTitle) {
 	TREENODEPTR foundNode = this->find(formerTitle);
-	if (foundNode == nullptr) {
+	if (foundNode == TREENULLPTR) {
 		//cout << "Node not found";
 		return false;
 
@@ -311,12 +312,12 @@ bool OrgTree::fire(string formerTitle) {
 		//cout << "Root cannot be fired";
 		return false;
 	}
-	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling == nullptr) {
+	if (foundNode->leftMostChild == TREENULLPTR &&foundNode->rightSibling == TREENULLPTR) {
 		//cout << "leaf node";if(
 		TREENODEPTR tempParent = foundNode->parent;
 		TREENODEPTR left = tempParent->leftMostChild;
 		if (left->title == foundNode->title&&foundNode->parent==tempParent) {
-			tempParent->leftMostChild = nullptr;
+			tempParent->leftMostChild = TREENULLPTR;
 			delete foundNode;
 			numElts--;
 			return true;
@@ -327,12 +328,12 @@ bool OrgTree::fire(string formerTitle) {
 		}
 		delete foundNode;
 
-		left->rightSibling = nullptr;
+		left->rightSibling = TREENULLPTR;
 		numElts--;
 		return true;
 		}
 	}
-	if (foundNode->leftMostChild == nullptr&&foundNode->rightSibling != nullptr) {
+	if (foundNode->leftMostChild == TREENULLPTR &&foundNode->rightSibling != TREENULLPTR) {
 		//cout << "one side empyty node";
 		TREENODEPTR tempParent = foundNode->parent;
 		TREENODEPTR left = tempParent->leftMostChild;
@@ -352,7 +353,7 @@ bool OrgTree::fire(string formerTitle) {
 		}
 		return true;
 	}
-	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling != nullptr) {
+	if (foundNode->leftMostChild != TREENULLPTR &&foundNode->rightSibling != TREENULLPTR) {
 		TREENODEPTR tempParent = foundNode->parent;
 		TREENODEPTR fixingchilds = foundNode->leftMostChild;
 		TREENODEPTR left = foundNode->parent->leftMostChild;
@@ -360,7 +361,7 @@ bool OrgTree::fire(string formerTitle) {
 		if (left->title == foundNode->title) {
 			foundNode->leftMostChild->parent = tempParent;
 			tempParent->leftMostChild = foundNode->leftMostChild;
-			while (fixingchilds->rightSibling != nullptr) {
+			while (fixingchilds->rightSibling != TREENULLPTR) {
 				
 				fixingchilds = fixingchilds->rightSibling;
 				fixingchilds->parent = tempParent;
@@ -371,7 +372,7 @@ bool OrgTree::fire(string formerTitle) {
 			numElts--;
 
 		}else{
-		while (fixingchilds->rightSibling != nullptr) {
+		while (fixingchilds->rightSibling != TREENULLPTR) {
 			
 			fixingchilds->parent = left->parent;
 
@@ -379,7 +380,7 @@ bool OrgTree::fire(string formerTitle) {
 
 		}
 		fixingchilds->parent = left->parent;
-		if (foundNode->rightSibling != nullptr)
+		if (foundNode->rightSibling != TREENULLPTR)
 			fixingchilds->rightSibling = foundNode->rightSibling;
 		left->rightSibling = foundNode->leftMostChild;
 		
@@ -391,7 +392,7 @@ bool OrgTree::fire(string formerTitle) {
 		}
 	}
 
-	if (foundNode->leftMostChild != nullptr&&foundNode->rightSibling == nullptr) {
+	if (foundNode->leftMostChild != TREENULLPTR &&foundNode->rightSibling == TREENULLPTR) {
 		TREENODEPTR tempParent = foundNode->parent;
 		TREENODEPTR left = foundNode->parent->leftMostChild;
 		TREENODEPTR fixingChilds = foundNode->leftMostChild;
@@ -409,8 +410,8 @@ bool OrgTree::fire(string formerTitle) {
 	//	foundNode->leftMostChild->parent = left->parent;
 		left->rightSibling = foundNode->leftMostChild;
 
-		while (fixingChilds->rightSibling != nullptr) {
-			fixingChilds->parent = nullptr;
+		while (fixingChilds->rightSibling != TREENULLPTR) {
+			fixingChilds->parent = TREENULLPTR;
 			fixingChilds->parent = tempParent;
 			fixingChilds = fixingChilds->rightSibling;
 		}

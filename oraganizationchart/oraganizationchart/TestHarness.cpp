@@ -48,7 +48,7 @@ int main() {
 
 	//TreeNode* rootAddress = o1.getRoot();
 	//TreeNode* dataFinder;
-	//o1.write("output.txt");
+	o1.write("output.txt");
 	//cout << "size of organization" << o1.getSize();
 	//dataFinder = o1.find("VM");
 	//TreeNode* lefchild= o1.leftmostChild(dataFinder);
@@ -79,7 +79,7 @@ int main() {
 	o2.fire("DA");
 	o2.fire("MW");
 	o2.write("ouput2.txt");*/
-	/*
+	
 	o3.addRoot("Digital Media Specialist","Al Gore");
 	o3.addRoot("Director of Marketing","George Lucas");
 	o3.addRoot("VP Sales","Mark Zuckerberg");
@@ -93,6 +93,10 @@ int main() {
 	o3.hire(o3.find("VP Software Development"), "Cloud Development", "Bob Ross");
 	o3.hire(o3.find("MagicBag Team Leader"), "Software Engineer I", "Donald Knuth");
 	o3.hire(o3.find("MagicBag Team Leader"), "Software Engineer II", "Marvin Minsky");
+	//
+	TREENODEPTR mynode = o3.find("President");	
+	TREENODEPTR mynoderight = o3.leftmostChild(o3.find("President"));
+
 	o3.fire("Head of Television and Print Advertising");
 	o3.fire("VP Operations");
 	o3.fire("VP Sales");
@@ -107,9 +111,9 @@ int main() {
 	o3.fire("Software Engineer II");
 	o3.fire("Director of Marketing");
 //	o3.fire("Digital Media Specialist");
-	
+	o3.rightSibling(o3.find("VP Sales"));
 	o3.write("ouput3.txt");
-	*/
+	TREENODEPTR mynodeleft  = o3.leftmostChild(o3.find("President"));
 
 	system("PAUSE");
 	return 0;
