@@ -9,7 +9,8 @@
 #include <iomanip>
 //#define TREENULLPTR NULL
 using namespace std;
-
+//silent read is a flag if it is false then it will print the sub tree if it is true it will write the tree to a file
+// time complexity : theta(1)
 OrgTree::OrgTree()
 {
 	numElts = 0;
@@ -24,7 +25,10 @@ OrgTree::~OrgTree()
 //	delete currentRoot;
 	delete root;
 }
-
+/*add root if root is not null will make current root as left child of the new root 
+else create a new root
+time complexity : theta(1)
+*/
 void OrgTree::addRoot(string title,string name) {
 	TREENODEPTR currentTreeNode;
 	if (numElts != 0) {
@@ -46,7 +50,9 @@ void OrgTree::addRoot(string title,string name) {
 
 
 }
-
+/*read will read the input file line by line and create the general tree.
+time complexity theta(n) n is the number of lines in the file
+*/
 bool OrgTree::read(string filename) {
 	string data, junk,previousjunk,secondtolastjunk;
 	ifstream ifs;
@@ -115,7 +121,11 @@ bool OrgTree::read(string filename) {
 		
 	return true;
 }
-
+/* if the left child of the hiring node is empty then the new node will be added as left child
+else the new node will be inserted as right most sibling
+if right sibling is not null we traverse to the right most sibling and add a right child to the right most sibling
+time complexity : theta(n)
+*/
 void OrgTree::hire(TREENODEPTR treeNode, string newTitle, string name) {
 	TREENODEPTR temp = new TreeNode(newTitle, name);
 //	if(currentRoot==nullptr)
@@ -138,7 +148,17 @@ void OrgTree::hire(TREENODEPTR treeNode, string newTitle, string name) {
 
 	}
 }
+/*
+write function will write the general tree to a file
+here the time complexity is based on number of organization members
+time complexity : theta(n)
+The reason why we are doing filecontents.pop_back(); twice is to remove the reduntant ")" & "^" added to the file contents by the root node 
+since the mechanism used to generate the file contents is preorder traversal using recursion
+"^" is the delimiter for which a new line will be added in the file
 
+there is not handling like if file size is >0 then delete the file and create an empty file ()
+
+*/
 void OrgTree::write(string filename) {
 	filecontents = "";
 	if (root == TREENULLPTR){
@@ -177,7 +197,17 @@ void OrgTree::write(string filename) {
 	silentRead = false;
 	//}
 }
+/*
+prints all the subtree elements :
+Timecomplexity : theta(n)
+control flag is silentRead false
+this function  will use a stack based preorder traversal in order to print the contents to a file . 
+control flag is silentRead true
 
+this funtion will use recursive preorder traversal in order to write the contents of the general trees to file. 
+
+
+*/
 void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 
 	int intendation = 4;
@@ -234,14 +264,23 @@ void OrgTree::printSubTree(TREENODEPTR subTreeRoot) {
 
 	
 }
-
+/* return the number of members in organization
+Timecomplexity : theta(1)
+*/
 unsigned int OrgTree::getSize() {
 	return numElts;
 }
-
+/* return president of the organization
+Timecomplexity : theta(1)
+*/
 TREENODEPTR OrgTree::getRoot() {
 	return root;
 }
+
+/*
+return left most child of a tree node
+Timecomplexity : theta(1)
+*/
 TREENODEPTR OrgTree::leftmostChild(TREENODEPTR node) {
 	if (node == TREENULLPTR) {
 		return TREENULLPTR;
@@ -251,7 +290,10 @@ TREENODEPTR OrgTree::leftmostChild(TREENODEPTR node) {
 	else
 		return TREENULLPTR;
 }
-
+/*
+return right sibling of a tree node
+Timecomplexity : theta(1)
+*/
 TREENODEPTR OrgTree::rightSibling(TREENODEPTR node) {
 	if (node == TREENULLPTR) {
 		return TREENULLPTR;
@@ -262,6 +304,12 @@ TREENODEPTR OrgTree::rightSibling(TREENODEPTR node) {
 		return TREENULLPTR;
 
 }
+
+/*
+find the pariticular node in a general tree
+approach is preorder traversal using stack
+Timecomplexity : theta(n)
+*/
 TREENODEPTR OrgTree::find(string title) {
 
 	if (root == TREENULLPTR)
@@ -300,7 +348,11 @@ TREENODEPTR OrgTree::find(string title) {
 	}
 	return returnValue;
 }
-
+/*
+fire method may do a lot of rotation to make the tree valid 
+all the different use cases for fire method are handled here in the code below
+Timecomplexity : best theta(1) and worst case theta(n)
+*/
 bool OrgTree::fire(string formerTitle) {
 	TREENODEPTR foundNode = this->find(formerTitle);
 	if (foundNode == TREENULLPTR) {

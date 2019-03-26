@@ -6,7 +6,7 @@
 #define TREENULLPTR NULL
 
 using namespace std;
-
+//space complexity is n(3p+2) 3p is 3 pointers and 2 is the string data members. n represents number of members 
 class TreeNode {
 public:
 	string title;
